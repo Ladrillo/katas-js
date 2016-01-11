@@ -79,7 +79,6 @@ export function codewars() {
     };
 
 
-
     describe('once function', function () {
 
         let worksAlways = stuff => stuff;
@@ -114,7 +113,9 @@ export function codewars() {
     (or)
 
         [8, 18*, 1] => [8, (18-9), 1] => [8, 9, 1]
-        Sum all of the final digits
+
+    Sum all of the final digits
+
         [8, 9, 1] => 8+9+1 => 18
 
     Finally, take that sum and divide it by 10. If the remainder equals zero, the original credit card number is valid.
@@ -124,8 +125,46 @@ export function codewars() {
     8 does not equal 0, so 891 is not a valid credit card number.
     */
 
-    describe('function validate', function () {
+    let doubleEveryOther = function (int) {
 
+        let digits = String(int).split('').map((e) => Number(e));
+        return digits.map(function (e, i) {
+            if (String(int).length % 2 === 0) {
+                return i % 2 === 0 ? e * 2 : e;
+            }
+            return i % 2 !== 0 ? e * 2 : e;
+        }).map(function (e) {
+            if (e > 9) {
+                return Number(String(e).split('')[0]) + Number(String(e).split('')[1]);
+            }
+            return e;
+        });
+    };
+
+    let validateCreditCard = function (int) {
+        return doubleEveryOther(int).reduce((acc, e) => acc + e) % 10 === 0;
+    };
+
+    describe('helper function doubleEveryOther', function () {
+        it('should work with even number of digits', function () {
+            expect(doubleEveryOther(1234)).to.eql([2, 2, 6, 4]);
+        });
+        it('should work with odd number of digits', function () {
+            expect(doubleEveryOther(123)).to.eql([1, 4, 3]);
+        });
+        it('should work with digits that go over 9', function () {
+            expect(doubleEveryOther(1254)).to.eql([2, 2, 1, 4]);
+            expect(doubleEveryOther(153)).to.eql([1, 1, 3]);
+        });
     });
 
+    describe('function validateCreditCard', function () {
+        it('should return true if given valid credit card number', function () {
+            expect(validateCreditCard(4916591904898577)).to.be.true;
+            expect(validateCreditCard(5305491575977279)).to.be.true;
+        });
+        it('should return false if given invalid credit card number', function () {
+            expect(validateCreditCard(1234123412341234)).to.be.false;
+        });
+    });
 }
