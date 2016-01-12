@@ -101,9 +101,7 @@ export function codewars() {
     If there are an even number of digits, double every other digit starting with the first, and if there are an odd number of digits, double every other digit starting with the second. Another way to think about it is, from the right to left, double every other digit starting with the second to last digit.
 
         1714 => [1*, 7, 1*, 4] => [2, 7, 2, 4]
-
         12345 => [1, 2*, 3, 4*, 5] => [1, 4, 3, 8, 5]
-
         891 => [8, 9*, 1] => [8, 18, 1]
 
     If a resulting doubled number is greater than 9, replace it with either the sum of it's own digits, or 9 subtracted from it.
@@ -129,11 +127,13 @@ export function codewars() {
 
         let digits = String(int).split('').map((e) => Number(e));
         return digits.map(function (e, i) {
+
             if (String(int).length % 2 === 0) {
                 return i % 2 === 0 ? e * 2 : e;
             }
             return i % 2 !== 0 ? e * 2 : e;
         }).map(function (e) {
+
             if (e > 9) {
                 return Number(String(e).split('')[0]) + Number(String(e).split('')[1]);
             }
@@ -165,6 +165,71 @@ export function codewars() {
         });
         it('should return false if given invalid credit card number', function () {
             expect(validateCreditCard(1234123412341234)).to.be.false;
+        });
+    });
+    
+    
+    /*
+    You've just recently been hired to calculate scores for a Dart Board game! 
+
+    Scoring specifications:
+    
+        0 points - radius above 10
+        5 points - radius between 5 and 10 inclusive
+        10 points - radius less than 5
+
+    If all radiuses are less than 5, award 100 BONUS POINTS!
+
+    Write a function that accepts an array of radiuses (can be integers and/or floats), 
+    and returns a total score using the above specification.
+    An empty array should return 0.
+    */
+
+    let calculate = function (rad) {
+
+        if (rad >= 0 && rad < 5) return 10;
+        if (rad >= 5 && rad <= 10) return 5;
+        return 0;
+    };
+
+    let scoreThrows = function (rads) {
+
+        let awesome = rads.every(e => e < 5);
+        let scores = rads.map(e => calculate(e));
+        let sum = scores.reduce((acc, e) => acc + e);
+        
+        if (rads.length === 0) return 0;
+        return awesome ? sum + 100 : sum;
+    };
+
+
+
+    describe('function calculate', function () {
+        it('should give score 0 for invalid negative radius', function () {
+            expect(calculate(-6)).to.equal(0);
+        });
+        it('should give score 10 for radius less than five', function () {
+            expect(calculate(4.9)).to.equal(10);
+            expect(calculate(0)).to.equal(10);
+        });
+        it('should give score 5 for radius between 5 - 10 inclusive', function () {
+            expect(calculate(5)).to.equal(5);
+            expect(calculate(7.5)).to.equal(5);
+            expect(calculate(10)).to.equal(5);
+        });
+        it('should give score 0 for radius above 10', function () {
+            expect(calculate(10.1)).to.equal(0);
+            expect(calculate(11)).to.equal(0);
+        });
+    });
+
+    describe('function scoreThrows', function () {
+        it('should return a total score based on an array of radiuses', function () {
+            expect(scoreThrows([1, 5, 11])).to.equal(15);
+            expect(scoreThrows([15, 20, 30])).to.equal(0);
+        });
+        it('should give 100 extra points if all radiuses under 5', function () {
+            expect(scoreThrows([1, 2, 3, 4])).to.equal(140);
         });
     });
 }
