@@ -197,7 +197,7 @@ export function codewars() {
         let awesome = rads.every(e => e < 5);
         let scores = rads.map(e => calculate(e));
         let sum = scores.reduce((acc, e) => acc + e);
-        
+
         if (rads.length === 0) return 0;
         return awesome ? sum + 100 : sum;
     };
@@ -230,6 +230,26 @@ export function codewars() {
         });
         it('should give 100 extra points if all radiuses under 5', function () {
             expect(scoreThrows([1, 2, 3, 4])).to.equal(140);
+        });
+    });
+    
+    
+    
+    //A digital root is the recursive sum of all the digits in a number. Given n, take the sum of the digits of n. If that value has two digits, continue reducing in this way until a single-digit number is produced. This is only applicable to the natural numbers.
+    
+    let digitalRoot = function (int) {
+        if (int < 10) return int;
+        let digitSum = String(int).split('').map(e => Number(e)).reduce((acc, e) => acc + e);
+        if (digitSum < 10) return digitSum;
+        return digitalRoot(digitSum);
+    };
+
+    describe('function digitalRoot', function () {
+        it('should compute the digital root of an integer', function () {
+            expect(digitalRoot(16)).to.equal(7);
+            expect(digitalRoot(942)).to.equal(6);
+            expect(digitalRoot(132189)).to.equal(6);
+            expect(digitalRoot(493193)).to.equal(2);
         });
     });
 }
