@@ -235,10 +235,10 @@ export function codewars() {
     
     
     
-    //A digital root is the recursive sum of all the digits in a number. Given n, take the sum of the digits of n. If that value has two digits, continue reducing in this way until a single-digit number is produced. This is only applicable to the natural numbers.
+    // A digital root is the recursive sum of all the digits in a number. Given n, take the sum of the digits of n. If that value has two digits, continue reducing in this way until a single-digit number is produced. This is only applicable to the natural numbers.
     
     let digitalRoot = function (int) {
-        
+
         if (int < 10) return int;
         let digitSum = String(int).split('').map(e => Number(e)).reduce((acc, e) => acc + e);
         return digitSum < 10 ? digitSum : digitalRoot(digitSum);
@@ -251,5 +251,32 @@ export function codewars() {
             expect(digitalRoot(132189)).to.equal(6);
             expect(digitalRoot(493193)).to.equal(2);
         });
+    });
+    
+    // Create a function named "rotate" that takes an array and returns a new one with the elements inside rotated n spaces. If n is greater than 0 it should rotate the array to the right. If n is less than 0 it should rotate the array to the left. If n is 0, then it should return the array unchanged.
+    
+    let rotate = function (arr, n) {
+          
+    };
+    
+    describe('function rotate', function () {
+        let data = [1, 2, 3, 4, 5];
+        it('should rotate n positions to right if n positive', function () {
+            expect(rotate(data, 1)).to.eql([5, 1, 2, 3, 4]);
+            expect(rotate(data, 2)).to.eql([4, 5, 1, 2, 3]);
+            expect(rotate(data, 3)).to.eql([3, 4, 5, 1, 2]);
+            expect(rotate(data, 4)).to.eql([2, 3, 4, 5, 1]);
+            expect(rotate(data, 5)).to.eql([1, 2, 3, 4, 5]);
+        });        
+        it('should not rotate if n is zero', function () {
+            expect(rotate(data, 0)).to.eql([1, 2, 3, 4, 5]);
+        });
+        it('should rotate n positions to left if n negative', function () {
+            expect(rotate(data, -1)).to.eql([2, 3, 4, 5, 1]);
+            expect(rotate(data, -2)).to.eql([3, 4, 5, 1, 2]);
+            expect(rotate(data, -3)).to.eql([4, 5, 1, 2, 3]);
+            expect(rotate(data, -4)).to.eql([5, 1, 2, 3, 4]);
+            expect(rotate(data, -5)).to.eql([1, 2, 3, 4, 5]);
+        });  
     });
 }
