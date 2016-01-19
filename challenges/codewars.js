@@ -256,27 +256,50 @@ export function codewars() {
     // Create a function named "rotate" that takes an array and returns a new one with the elements inside rotated n spaces. If n is greater than 0 it should rotate the array to the right. If n is less than 0 it should rotate the array to the left. If n is 0, then it should return the array unchanged.
     
     let rotate = function (arr, n) {
-          
+        let newArr = arr;
+        if (n > 0) {
+            while (n > 0) {
+                newArr.unshift(newArr.pop());
+                n--;
+            }
+            console.log(newArr);
+            return newArr;
+        }
+        if (n < 0) {
+            while (n < 0) {
+                newArr.push(newArr.shift());
+                n++;
+            }
+            console.log(newArr);
+            return newArr;
+        }
+        else return newArr;
     };
-    
+
     describe('function rotate', function () {
         let data = [1, 2, 3, 4, 5];
-        it('should rotate n positions to right if n positive', function () {
+        it('should rotate 1 position to the right if n is 1', function () {
             expect(rotate(data, 1)).to.eql([5, 1, 2, 3, 4]);
+        });
+        it('should rotate n positions to the right if n positive', function () {
             expect(rotate(data, 2)).to.eql([4, 5, 1, 2, 3]);
             expect(rotate(data, 3)).to.eql([3, 4, 5, 1, 2]);
             expect(rotate(data, 4)).to.eql([2, 3, 4, 5, 1]);
             expect(rotate(data, 5)).to.eql([1, 2, 3, 4, 5]);
-        });        
+            expect(rotate(data, 10)).to.eql([1, 2, 3, 4, 5]);
+        });
         it('should not rotate if n is zero', function () {
             expect(rotate(data, 0)).to.eql([1, 2, 3, 4, 5]);
         });
-        it('should rotate n positions to left if n negative', function () {
+        it('should rotate 1 position to the left if n is -1', function () {
             expect(rotate(data, -1)).to.eql([2, 3, 4, 5, 1]);
+        });
+        it('should rotate n positions tom the left if n negative', function () {
             expect(rotate(data, -2)).to.eql([3, 4, 5, 1, 2]);
             expect(rotate(data, -3)).to.eql([4, 5, 1, 2, 3]);
             expect(rotate(data, -4)).to.eql([5, 1, 2, 3, 4]);
             expect(rotate(data, -5)).to.eql([1, 2, 3, 4, 5]);
-        });  
+            expect(rotate(data, -10)).to.eql([1, 2, 3, 4, 5]);
+        });
     });
 }
