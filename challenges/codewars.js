@@ -255,7 +255,7 @@ export function codewars() {
     
     // Create a function named "rotate" that takes an array and returns a new one with the elements inside rotated n spaces. If n is greater than 0 it should rotate the array to the right. If n is less than 0 it should rotate the array to the left. If n is 0, then it should return the array unchanged.
     
-    let rotate = function (arr, n) {
+    let rotate = function (arr, n) { // trying hard
         let newArr = arr;
         if (n > 0) {
             while (n > 0) {
