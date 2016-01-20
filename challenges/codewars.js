@@ -255,14 +255,13 @@ export function codewars() {
     
     // Create a function named "rotate" that takes an array and returns a new one with the elements inside rotated n spaces. If n is greater than 0 it should rotate the array to the right. If n is less than 0 it should rotate the array to the left. If n is 0, then it should return the array unchanged.
     
-    let rotate = function (arr, n) { // trying hard
-        let newArr = arr;
+    let rotate = function (arr, n) {
+        let newArr = new Array(...arr);
         if (n > 0) {
             while (n > 0) {
                 newArr.unshift(newArr.pop());
                 n--;
             }
-            console.log(newArr);
             return newArr;
         }
         if (n < 0) {
@@ -270,7 +269,6 @@ export function codewars() {
                 newArr.push(newArr.shift());
                 n++;
             }
-            console.log(newArr);
             return newArr;
         }
         else return newArr;
@@ -300,6 +298,49 @@ export function codewars() {
             expect(rotate(data, -4)).to.eql([5, 1, 2, 3, 4]);
             expect(rotate(data, -5)).to.eql([1, 2, 3, 4, 5]);
             expect(rotate(data, -10)).to.eql([1, 2, 3, 4, 5]);
+        });
+    });
+    
+    
+    
+    // Create a function named divisors that takes an integer and returns an array with all of the integer's divisors(except for 1 and the number itself). If the number is prime return the string '(integer) is prime'
+    
+    
+    let divisors = function (int) {
+        for (var i = Math.ceil(int / 2), divs = []; i > 1; i--) {
+            if (int % i === 0) divs.unshift(i);
+        }
+        return divs.length > 0 ? divs : `${int} is prime`;
+    };
+
+
+    describe('function divisors', function () {
+        it('should return array of divisors', function () {
+            expect(divisors(12)).to.eql([2, 3, 4, 6]);
+            expect(divisors(25)).to.eql([5]);
+        });
+        it('should return a string message if num is prime', function () {
+            expect(divisors(13)).to.equal("13 is prime");
+        });
+    });
+    
+    
+    // Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
+    
+    let createPhoneNumber = function (int) {
+        let a = int.slice(0, 3).join('');
+        let b = int.slice(3, 6).join('');
+        let c = int.slice(6).join('');
+        return `(${a}) ${b}-${c}`;
+    };
+
+    function createPhoneNumberb(numbers) { // clever use of regexps by mrkishi
+        return numbers.join('').replace(/(...)(...)(.*)/, '($1) $2-$3');
+    }
+
+    describe('function createPhoneNumber', function () {
+        it('should return a correctly formated phone number', function () {
+            expect(createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])).to.equal("(123) 456-7890");
         });
     });
 }
