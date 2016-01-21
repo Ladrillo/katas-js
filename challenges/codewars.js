@@ -343,4 +343,45 @@ export function codewars() {
             expect(createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])).to.equal("(123) 456-7890");
         });
     });
+
+    // Oh no, our Math object was "accidently" reset. Can you re-implement some of those functions? We can assure, that only non-negative numbers are passed as arguments. So you don't have to consider things like undefined, null, NaN, negative numbers, strings and so on.
+
+
+    let myRound = function (number) {
+        let remainder = number % 1;
+        if (remainder === 0) return number;
+        if (remainder < 0.5) return number - remainder;
+        return number + remainder;
+    };
+
+    let myCeil = function (number) {
+        let remainder = number % 1;
+        if (remainder === 0) return number;
+        return number + 1 - remainder;
+    };
+
+    let myFloor = function (number) {
+        let remainder = number % 1;
+        if (remainder === 0) return number;
+        return number - remainder;
+    };
+    
+    describe('myRound function', function () {
+        it('should round numbers', function () {
+            expect(myRound(0.4)).to.eql(0);
+            expect(myRound(0.5)).to.eql(1);
+        });
+    });
+    describe('myCeil function', function () {
+        it('should ceil numbers', function () {
+            expect(myCeil(0.4)).to.eql(1);
+            expect(myCeil(0.5)).to.eql(1);
+        });
+    });
+    describe('myFloor function', function () {
+        it('should ceil numbers', function () {
+            expect(myFloor(4)).to.eql(4);
+            expect(myFloor(0.5)).to.eql(0);
+        });
+    });
 }
