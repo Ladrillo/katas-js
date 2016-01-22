@@ -203,7 +203,6 @@ export function codewars() {
     };
 
 
-
     describe('function calculate', function () {
         it('should give score 0 for invalid negative radius', function () {
             expect(calculate(-6)).to.equal(0);
@@ -232,7 +231,6 @@ export function codewars() {
             expect(scoreThrows([1, 2, 3, 4])).to.equal(140);
         });
     });
-    
     
     
     // A digital root is the recursive sum of all the digits in a number. Given n, take the sum of the digits of n. If that value has two digits, continue reducing in this way until a single-digit number is produced. This is only applicable to the natural numbers.
@@ -299,12 +297,10 @@ export function codewars() {
             expect(rotate(data, -5)).to.eql([1, 2, 3, 4, 5]);
             expect(rotate(data, -10)).to.eql([1, 2, 3, 4, 5]);
         });
-    });
-    
+    });    
     
     
     // Create a function named divisors that takes an integer and returns an array with all of the integer's divisors(except for 1 and the number itself). If the number is prime return the string '(integer) is prime'
-    
     
     let divisors = function (int) {
         for (var i = Math.ceil(int / 2), divs = []; i > 1; i--) {
@@ -312,8 +308,7 @@ export function codewars() {
         }
         return divs.length > 0 ? divs : `${int} is prime`;
     };
-
-
+    
     describe('function divisors', function () {
         it('should return array of divisors', function () {
             expect(divisors(12)).to.eql([2, 3, 4, 6]);
@@ -343,9 +338,9 @@ export function codewars() {
             expect(createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])).to.equal("(123) 456-7890");
         });
     });
+    
 
     // Oh no, our Math object was "accidently" reset. Can you re-implement some of those functions? We can assure, that only non-negative numbers are passed as arguments. So you don't have to consider things like undefined, null, NaN, negative numbers, strings and so on.
-
 
     let myRound = function (number) {
         let remainder = number % 1;
@@ -355,9 +350,9 @@ export function codewars() {
     };
 
     let myCeil = function (number) {
-        let remainder = number % 1;
-        if (remainder === 0) return number;
-        return number + 1 - remainder;
+        let strNum = number + '';
+        if (!/\./.test(strNum)) return number;
+        return Number(strNum.split('').slice(0, strNum.indexOf('.')).join('')) + 1;
     };
 
     let myFloor = function (number) {
@@ -368,20 +363,21 @@ export function codewars() {
     
     describe('myRound function', function () {
         it('should round numbers', function () {
-            expect(myRound(0.4)).to.eql(0);
-            expect(myRound(0.5)).to.eql(1);
+            expect(myRound(0.4)).to.equal(0);
+            expect(myRound(0.5)).to.equal(1);
         });
     });
     describe('myCeil function', function () {
         it('should ceil numbers', function () {
-            expect(myCeil(0.4)).to.eql(1);
-            expect(myCeil(0.5)).to.eql(1);
+            expect(myCeil(1)).to.equal(1);
+            expect(myCeil(0.4)).to.equal(1);
+            expect(myCeil(0.5)).to.equal(1);
         });
     });
     describe('myFloor function', function () {
         it('should ceil numbers', function () {
-            expect(myFloor(4)).to.eql(4);
-            expect(myFloor(0.5)).to.eql(0);
+            expect(myFloor(4)).to.equal(4);
+            expect(myFloor(0.5)).to.equal(0);
         });
     });
 }
