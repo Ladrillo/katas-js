@@ -308,7 +308,7 @@ export function codewars() {
         }
         return divs.length > 0 ? divs : `${int} is prime`;
     };
-    
+
     describe('function divisors', function () {
         it('should return array of divisors', function () {
             expect(divisors(12)).to.eql([2, 3, 4, 6]);
@@ -360,7 +360,7 @@ export function codewars() {
         if (remainder === 0) return number;
         return number - remainder;
     };
-    
+
     describe('myRound function', function () {
         it('should round numbers', function () {
             expect(myRound(0.4)).to.equal(0);
@@ -378,6 +378,90 @@ export function codewars() {
         it('should ceil numbers', function () {
             expect(myFloor(4)).to.equal(4);
             expect(myFloor(0.5)).to.equal(0);
+        });
+    });
+    
+    
+    // For this exercise you will be strengthening your page-fu mastery. You will complete the PaginationHelper class, which is a utility class helpful for querying paging information related to an array. The class is designed to take in an array of values and an integer indicating how many items will be allowed per each page. The types of values contained within the collection/array are not relevant.
+    
+    class PaginationHelper {
+        
+        // The constructor takes in an array of items and a integer 
+        // indicating how many items fit within a single page
+        constructor(collection, itemsPerPage) {
+
+            let paginate = function paginate(arr, n) {
+                if (arr.length === 0) return [];
+                return [].concat([arr.slice(0, n)]).concat(paginate(arr.slice(n), n));
+            };
+            
+            this.collection = collection;
+            this.itemsPerPage = itemsPerPage;
+            this.paginatedArray = paginate(collection, itemsPerPage);
+        }
+        // returns the number of items within the entire collection
+        itemCount() {
+            return this.collection.length;
+        }
+        // returns the number of pages
+        pageCount() {
+            return Math.ceil(this.collection.length / this.itemsPerPage);
+        }
+        // returns the number of items on the current page. page_index is zero based.
+        // this method should return -1 for pageIndex values that are out of range
+        pageItemCount(pageIndex) {
+            if (pageIndex >= this.paginatedArray.length || pageIndex < 0)
+                return -1;
+            return this.paginatedArray[pageIndex].length;
+        }
+        // determines what page an item is on. Zero based indexes
+        // this method should return -1 for itemIndex values that are out of range
+        pageIndex(itemIndex) {
+            
+        }
+
+
+    }
+
+    describe('PaginationHelper class', function () {
+
+        let helper = new PaginationHelper(['a', 'b', 'c', 'd', 'e', 'f'], 4);
+
+        it('should have a itemCount method', function () {
+            expect(helper.itemCount()).to.equal(6);
+        });
+        it('should have a pageCount method', function () {
+            expect(helper.pageCount()).to.equal(2);
+        });
+        it('should have a pageItemCount method that returns n of items when page capacity is reached', function () {
+            expect(helper.pageItemCount(0)).to.equal(4);
+        });
+        it('should have a pageItemCount method that returns n of items when when page not full', function () {
+            expect(helper.pageItemCount(1)).to.equal(2);
+        });
+        it('should have a pageItemCount method that returns -1 for invalid page indexes', function () {
+            expect(helper.pageItemCount(2)).to.equal(-1);
+        });
+        it('should have a pageIndex method that returns the page an item belogs to', function () {
+            expect(helper.pageIndex(2)).to.equal(0);
+            expect(helper.pageIndex(5)).to.equal(1);
+        });
+        it('should have a pageIndex method that returns -1 for invalid item indexes', function () {
+            expect(helper.pageIndex(20)).to.equal(-1);
+            expect(helper.pageIndex(-10)).to.equal(-1);
+        });
+    });
+    describe('paginate helper function', function () {
+
+        let arr = ['a', 'b', 'c', 'd', 'e'], n = 2;
+
+        let paginate = function paginate(arr, n) {
+            if (arr.length === 0) return [];
+            return [].concat([arr.slice(0, n)]).concat(paginate(arr.slice(n), n));
+        };
+
+        it('should take an array and an integer n and return an array of arrays of max lenght n', function () {
+            expect(paginate(arr, n)).to.eql([['a', 'b'], ['c', 'd'], ['e']]);
         });
     });
 }
