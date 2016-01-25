@@ -417,10 +417,12 @@ export function codewars() {
         // determines what page an item is on. Zero based indexes
         // this method should return -1 for itemIndex values that are out of range
         pageIndex(itemIndex) {
-
+            if (itemIndex > this.collection.length || itemIndex < 0)
+                return -1;
+            if ((itemIndex + 1) % this.itemsPerPage === 0)
+                return ((itemIndex + 1) / this.itemsPerPage) - 1;
+            return Math.floor((itemIndex + 1) / this.itemsPerPage);
         }
-
-
     }
 
     describe('PaginationHelper class', function () {
@@ -443,7 +445,11 @@ export function codewars() {
             expect(helper.pageItemCount(2)).to.equal(-1);
         });
         it('should have a pageIndex method that returns the page an item belogs to', function () {
+            expect(helper.pageIndex(0)).to.equal(0);
+            expect(helper.pageIndex(1)).to.equal(0);
             expect(helper.pageIndex(2)).to.equal(0);
+            expect(helper.pageIndex(3)).to.equal(0);
+            expect(helper.pageIndex(4)).to.equal(1);
             expect(helper.pageIndex(5)).to.equal(1);
         });
         it('should have a pageIndex method that returns -1 for invalid item indexes', function () {
