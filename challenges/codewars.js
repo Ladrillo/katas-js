@@ -167,20 +167,20 @@ export function codewars() {
             expect(validateCreditCard(1234123412341234)).to.be.false;
         });
     });
-    
-    
+
+
     /*
-    You've just recently been hired to calculate scores for a Dart Board game! 
+    You've just recently been hired to calculate scores for a Dart Board game!
 
     Scoring specifications:
-    
+
         0 points - radius above 10
         5 points - radius between 5 and 10 inclusive
         10 points - radius less than 5
 
     If all radiuses are less than 5, award 100 BONUS POINTS!
 
-    Write a function that accepts an array of radiuses (can be integers and/or floats), 
+    Write a function that accepts an array of radiuses (can be integers and/or floats),
     and returns a total score using the above specification.
     An empty array should return 0.
     */
@@ -231,10 +231,10 @@ export function codewars() {
             expect(scoreThrows([1, 2, 3, 4])).to.equal(140);
         });
     });
-    
-    
+
+
     // A digital root is the recursive sum of all the digits in a number. Given n, take the sum of the digits of n. If that value has two digits, continue reducing in this way until a single-digit number is produced. This is only applicable to the natural numbers.
-    
+
     let digitalRoot = function (int) {
 
         if (int < 10) return int;
@@ -250,9 +250,9 @@ export function codewars() {
             expect(digitalRoot(493193)).to.equal(2);
         });
     });
-    
+
     // Create a function named "rotate" that takes an array and returns a new one with the elements inside rotated n spaces. If n is greater than 0 it should rotate the array to the right. If n is less than 0 it should rotate the array to the left. If n is 0, then it should return the array unchanged.
-    
+
     let rotate = function (arr, n) {
         let newArr = new Array(...arr);
         if (n > 0) {
@@ -297,11 +297,11 @@ export function codewars() {
             expect(rotate(data, -5)).to.eql([1, 2, 3, 4, 5]);
             expect(rotate(data, -10)).to.eql([1, 2, 3, 4, 5]);
         });
-    });    
-    
-    
+    });
+
+
     // Create a function named divisors that takes an integer and returns an array with all of the integer's divisors(except for 1 and the number itself). If the number is prime return the string '(integer) is prime'
-    
+
     let divisors = function (int) {
         for (var i = Math.ceil(int / 2), divs = []; i > 1; i--) {
             if (int % i === 0) divs.unshift(i);
@@ -318,10 +318,10 @@ export function codewars() {
             expect(divisors(13)).to.equal("13 is prime");
         });
     });
-    
-    
+
+
     // Write a function that accepts an array of 10 integers (between 0 and 9), that returns a string of those numbers in the form of a phone number.
-    
+
     let createPhoneNumber = function (int) {
         let a = int.slice(0, 3).join('');
         let b = int.slice(3, 6).join('');
@@ -338,7 +338,7 @@ export function codewars() {
             expect(createPhoneNumber([1, 2, 3, 4, 5, 6, 7, 8, 9, 0])).to.equal("(123) 456-7890");
         });
     });
-    
+
 
     // Oh no, our Math object was "accidently" reset. Can you re-implement some of those functions? We can assure, that only non-negative numbers are passed as arguments. So you don't have to consider things like undefined, null, NaN, negative numbers, strings and so on.
 
@@ -380,13 +380,13 @@ export function codewars() {
             expect(myFloor(0.5)).to.equal(0);
         });
     });
-    
-    
+
+
     // For this exercise you will be strengthening your page-fu mastery. You will complete the PaginationHelper class, which is a utility class helpful for querying paging information related to an array. The class is designed to take in an array of values and an integer indicating how many items will be allowed per each page. The types of values contained within the collection/array are not relevant.
-    
+
     class PaginationHelper {
-        
-        // The constructor takes in an array of items and a integer 
+
+        // The constructor takes in an array of items and a integer
         // indicating how many items fit within a single page
         constructor(collection, itemsPerPage) {
 
@@ -394,7 +394,7 @@ export function codewars() {
                 if (arr.length === 0) return [];
                 return [].concat([arr.slice(0, n)]).concat(paginate(arr.slice(n), n));
             };
-            
+
             this.collection = collection;
             this.itemsPerPage = itemsPerPage;
             this.paginatedArray = paginate(collection, itemsPerPage);
@@ -405,7 +405,7 @@ export function codewars() {
         }
         // returns the number of pages
         pageCount() {
-            return Math.ceil(this.collection.length / this.itemsPerPage);
+            return this.paginatedArray.length;
         }
         // returns the number of items on the current page. page_index is zero based.
         // this method should return -1 for pageIndex values that are out of range
@@ -417,7 +417,7 @@ export function codewars() {
         // determines what page an item is on. Zero based indexes
         // this method should return -1 for itemIndex values that are out of range
         pageIndex(itemIndex) {
-            
+
         }
 
 
