@@ -470,4 +470,40 @@ export function codewars() {
             expect(paginate(arr, n)).to.eql([['a', 'b'], ['c', 'd'], ['e']]);
         });
     });
+    
+    
+    // Functional programming thrives from the reuse of functions. One core feature to extend the reuse is the concatenation of functions. Build a function pipe to achieve this with JS. 
+    
+    Function.prototype.pipe = function (fun) {
+        return (e) => fun(this(e));
+    };
+    
+    describe('method pipe', function () {
+        
+        let addOne = (e) => e + 1;
+            let square = (e) => e * e;
+            let substractOne = (e) => e - 1;
+            
+        it('should be able to pipe two functions', function () {
+            expect(addOne.pipe(square)(2)).to.equal(9);
+        });
+        it('should be able to pipe an arbitrary number of functions', function () {  
+            expect(addOne.pipe(square.pipe(substractOne))(2)).to.equal(8);
+        });
+    });
+    
+    // The rgb() method is incomplete. Complete the method so that passing in RGB decimal values will result in a hexadecimal representation being returned. The valid decimal values for RGB are 0 - 255. Any (r,g,b) argument values that fall out of that range should be rounded to the closest valid value.
+    
+    let rgb = function (r, g, b) {
+        
+    };
+    
+    describe('rgb function', function () {
+        it('should turn rgb velues into hexadecimal representation', function () {
+            expect(rgb(255, 255, 255)).to.be('FFFFFF');
+            expect(rgb(255, 255, 300)).to.be('FFFFFF');
+            expect(rgb(0,0,0)).to.be('000000');
+            expect(rgb(148, 0, 211)).to.be('9400D3');
+        });
+    });
 }
