@@ -477,17 +477,17 @@ export function codewars() {
     Function.prototype.pipe = function (fun) {
         return (e) => fun(this(e));
     };
-    
+
     describe('method pipe', function () {
-        
+
         let addOne = (e) => e + 1;
-            let square = (e) => e * e;
-            let substractOne = (e) => e - 1;
-            
+        let square = (e) => e * e;
+        let substractOne = (e) => e - 1;
+
         it('should be able to pipe two functions', function () {
             expect(addOne.pipe(square)(2)).to.equal(9);
         });
-        it('should be able to pipe an arbitrary number of functions', function () {  
+        it('should be able to pipe an arbitrary number of functions', function () {
             expect(addOne.pipe(square.pipe(substractOne))(2)).to.equal(8);
         });
     });
@@ -495,15 +495,39 @@ export function codewars() {
     // The rgb() method is incomplete. Complete the method so that passing in RGB decimal values will result in a hexadecimal representation being returned. The valid decimal values for RGB are 0 - 255. Any (r,g,b) argument values that fall out of that range should be rounded to the closest valid value.
     
     let rgb = function (r, g, b) {
-        
+
+
     };
-    
+
+    let decHexConverter = function (results, remainders) {
+        let lastResult = results[results.length - 1];
+        let hexDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
+        let hexRemainder = hexDigits[lastResult % 16];
+        results.push(Math.floor(lastResult / 16));
+        if (lastResult === 0) return remainders;
+        remainders = hexRemainder + remainders;
+        return decHexConverter(results, remainders);
+    };
+
+    describe('helper function decHexConverter', function () {
+        it('should convert dec ints to hex', function () {
+            expect(decHexConverter([0], '')).to.equal('0');
+            expect(decHexConverter([12], '')).to.equal('C');
+            expect(decHexConverter([67], '')).to.equal('43');
+            expect(decHexConverter([95], '')).to.equal('5F');
+            expect(decHexConverter([148], '')).to.equal('94');
+            expect(decHexConverter([250], '')).to.equal('FA');
+        });
+    });
+
     describe('rgb function', function () {
         it('should turn rgb velues into hexadecimal representation', function () {
             expect(rgb(255, 255, 255)).to.be('FFFFFF');
-            expect(rgb(255, 255, 300)).to.be('FFFFFF');
-            expect(rgb(0,0,0)).to.be('000000');
+            expect(rgb(0, 0, 0)).to.be('000000');
             expect(rgb(148, 0, 211)).to.be('9400D3');
+        });
+        it('should turn bad input to closest hexadecimal representation', function () {
+            // expect(rgb(255, 255, 300)).to.be('FFFFFF');
         });
     });
 }
