@@ -493,25 +493,31 @@ export function codewars() {
     });
     
     // The rgb() method is incomplete. Complete the method so that passing in RGB decimal values will result in a hexadecimal representation being returned. The valid decimal values for RGB are 0 - 255. Any (r,g,b) argument values that fall out of that range should be rounded to the closest valid value.
-    
-    let rgb = function (r, g, b) {
 
-
-    };
-
-    let decHexConverter = function (results, remainders) {
-        let lastResult = results[results.length - 1];
+    let decHexConverter = function decHexConverter(results, remainders) {
+        
         let hexDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
-        let hexRemainder = hexDigits[lastResult % 16];
+        let lastResult = results[results.length - 1];
+        if (results.length === 1 && lastResult === 0) return '00';
         results.push(Math.floor(lastResult / 16));
-        if (lastResult === 0) return remainders;
-        remainders = hexRemainder + remainders;
+        if (results.length > 1 && lastResult === 0) return remainders;
+        remainders = hexDigits[lastResult % 16] + remainders;
         return decHexConverter(results, remainders);
+    };
+    
+    let rgb = function (...rgb) {
+        
+        rgb = rgb.map((e) => {
+            if (e < 0) return 0;
+            else if (e > 255) return 255;
+            return e;
+        });
+        return rgb.map((e) => decHexConverter([e], '')).join('');
     };
 
     describe('helper function decHexConverter', function () {
         it('should convert dec ints to hex', function () {
-            expect(decHexConverter([0], '')).to.equal('0');
+            expect(decHexConverter([0], '')).to.equal('00');
             expect(decHexConverter([12], '')).to.equal('C');
             expect(decHexConverter([67], '')).to.equal('43');
             expect(decHexConverter([95], '')).to.equal('5F');
@@ -522,12 +528,12 @@ export function codewars() {
 
     describe('rgb function', function () {
         it('should turn rgb velues into hexadecimal representation', function () {
-            expect(rgb(255, 255, 255)).to.be('FFFFFF');
-            expect(rgb(0, 0, 0)).to.be('000000');
-            expect(rgb(148, 0, 211)).to.be('9400D3');
+            expect(rgb(255, 255, 255)).to.equal('FFFFFF');
+            expect(rgb(0, 0, 0)).to.equal('000000');
+            expect(rgb(148, 0, 211)).to.equal('9400D3');
         });
         it('should turn bad input to closest hexadecimal representation', function () {
-            // expect(rgb(255, 255, 300)).to.be('FFFFFF');
+            expect(rgb(255, 255, 300)).to.equal('FFFFFF');
         });
     });
 }
