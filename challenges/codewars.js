@@ -553,7 +553,7 @@ export function codewars() {
     */
 
     Function.prototype.wrap = function (fun) {
-        
+        return (...args) => fun(this, ...args);  
     };
 
     describe('function wrap', function () {
@@ -563,6 +563,21 @@ export function codewars() {
                 return original(yourName) + ", my name is " + myName;
             });
             expect(newSpeak('Mary', 'Kate')).to.equal('Hello Mary, my name is Kate');
+        });
+    });
+    
+    
+    // Given a positive number n (n > 0) find the prime factor decomposition of n. The result will be a string with the following form :
+    // "(p1**n1)(p2**n2)...(pk**nk)"
+    
+    let primeFactors = function (int) {
+        
+        
+    };
+    
+    describe('function primeFactors', function () {
+        it('should return the prime decomposition of n', function () {
+            expect(primeFactors(86240)).to.equal('(2**5)(5)(7**2)(11)');
         });
     });
 }
