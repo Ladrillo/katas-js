@@ -495,18 +495,19 @@ export function codewars() {
     // The rgb() method is incomplete. Complete the method so that passing in RGB decimal values will result in a hexadecimal representation being returned. The valid decimal values for RGB are 0 - 255. Any (r,g,b) argument values that fall out of that range should be rounded to the closest valid value.
 
     let decHexConverter = function decHexConverter(results, remainders) {
-        
+
         let hexDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'];
         let lastResult = results[results.length - 1];
+
         if (results.length === 1 && lastResult === 0) return '00';
         results.push(Math.floor(lastResult / 16));
         if (results.length > 1 && lastResult === 0) return remainders;
         remainders = hexDigits[lastResult % 16] + remainders;
         return decHexConverter(results, remainders);
     };
-    
+
     let rgb = function (...rgb) {
-        
+
         rgb = rgb.map((e) => {
             if (e < 0) return 0;
             else if (e > 255) return 255;
@@ -534,6 +535,34 @@ export function codewars() {
         });
         it('should turn bad input to closest hexadecimal representation', function () {
             expect(rgb(255, 255, 300)).to.equal('FFFFFF');
+        });
+    });
+    
+    
+    
+    // Create a function method that allow you to wrap an existing function. The method signature would look something like this:
+    /*
+    function speak(name) {
+        return "Hello " + name;
+    }
+    let newSpeak = speak.wrap(function (original, yourName, myName) {
+        greeting = original(yourName);
+        return greeting + ", my name is " + myName;
+    });
+    var greeting = newSpeak("Mary", "Kate");
+    */
+
+    Function.prototype.wrap = function (fun) {
+        
+    };
+
+    describe('function wrap', function () {
+        it('should wrap another function', function () {
+            let speak = name => `Hello ${name}`;
+            let newSpeak = speak.wrap(function (original, yourName, myName) {
+                return original(yourName) + ", my name is " + myName;
+            });
+            expect(newSpeak('Mary', 'Kate')).to.equal('Hello Mary, my name is Kate');
         });
     });
 }
