@@ -570,8 +570,19 @@ export function codewars() {
     // Given a positive number n (n > 0) find the prime factor decomposition of n. The result will be a string with the following form :
     // "(p1**n1)(p2**n2)...(pk**nk)"
     
+    let primesUpTo = function (int) {
+        let primes = [];
+        for (let i = int; i > 1; i--) {
+            if (isPrime(i)) primes.push(i);
+        }
+        return primes;
+    };
+    
     let primeFactors = function (int) {
-        
+        let factors = primesUpTo(int);
+        for (let i of factors) {
+ 
+        }
         
     };
     
