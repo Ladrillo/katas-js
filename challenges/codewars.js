@@ -553,7 +553,7 @@ export function codewars() {
     */
 
     Function.prototype.wrap = function (fun) {
-        return (...args) => fun(this, ...args);  
+        return (...args) => fun(this, ...args);
     };
 
     describe('function wrap', function () {
@@ -573,22 +573,40 @@ export function codewars() {
     let primesUpTo = function (int) {
         let primes = [];
         for (let i = int; i > 1; i--) {
-            if (isPrime(i)) primes.push(i);
+            if (isPrime(i)) primes.unshift(i);
         }
         return primes;
     };
     
-    let primeFactors = function (int) {
-        let factors = primesUpTo(int);
-        for (let i of factors) {
- 
-        }
+    let formatPrimeFactors = function (factors) {
         
     };
+
+    let primeFactors = function (int) {
+        let primes = primesUpTo(int);
+        let factors = [];
+        for (let i of primes) {
+            while (int % i === 0) {
+                factors.push(i);
+                int = int / i;
+            }
+        }
+        return factors;
+    };
     
+    
+
+    describe('helper function primesUpTo', function () {
+        it('should return all prime factors up to int', function () {
+            expect(primesUpTo(13)).to.eql([2, 3, 5, 7, 11, 13]);
+        });
+    });
+
     describe('function primeFactors', function () {
         it('should return the prime decomposition of n', function () {
-            expect(primeFactors(86240)).to.equal('(2**5)(5)(7**2)(11)');
+            expect(primeFactors(13)).to.eql([13]);
+            expect(primeFactors(48)).to.eql([2, 2, 2, 2, 3]);
+            // expect(primeFactors(86240)).to.equal('(2**5)(5)(7**2)(11)');
         });
     });
 }
