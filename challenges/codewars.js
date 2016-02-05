@@ -577,9 +577,20 @@ export function codewars() {
         }
         return primes;
     };
-    
+
     let formatPrimeFactors = function (factors) {
-        
+
+    };
+
+    let arrayOrganizer = function arrayOrganizer(arr, acc) {
+        if (arr.length === 0) return acc;
+        let equals = arr.slice(0, 1);
+        for (let e of arr.slice(1)) {
+            if (e === arr[0]) equals.push(e);
+            else break;
+        }
+        acc.push(equals);
+        return arrayOrganizer(arr.slice(equals.length), acc);
     };
 
     let primeFactors = function (int) {
@@ -593,12 +604,19 @@ export function codewars() {
         }
         return factors;
     };
-    
-    
+
+
 
     describe('helper function primesUpTo', function () {
         it('should return all prime factors up to int', function () {
             expect(primesUpTo(13)).to.eql([2, 3, 5, 7, 11, 13]);
+        });
+    });
+
+    describe('helper function array organizer', function () {
+        it('should break an array into array of arrays of equal elements', function () {
+            expect(arrayOrganizer([2, 2, 2, 2, 3, 3, 1, 0, -1, -1], []))
+                .to.eql([[2, 2, 2, 2], [3, 3], [1], [0], [-1, -1]]);
         });
     });
 
